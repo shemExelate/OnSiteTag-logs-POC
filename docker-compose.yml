@@ -66,17 +66,6 @@ services:
     depends_on:
       - elasticsearch
 
-  app:
-    build : ./app
-    volumes:
-      - ./app/:/usr/src/app
-      - /usr/src/app/node_modules/ # make node_module empty in container
-    command: npm start
-    ports:
-      - "3000:3000"
-    networks:
-      - elk
-
   nginx:
     build: ./nginx
     volumes:
@@ -85,10 +74,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    links:
-      - app:app
-    depends_on: 
-      - app
     networks:
       - elk
 
@@ -101,7 +86,6 @@ services:
     networks:
       - elk
     depends_on: 
-      - app
       - nginx
       - logstash
       - elasticsearch
