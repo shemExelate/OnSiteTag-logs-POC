@@ -5,12 +5,6 @@ This is extended version from [ELK on Docker](https://github.com/deviantony/dock
 ## What 's insides 
 
 ```
-├── app
-│   ├── package.json
-│   ├── package-lock.json
-│   ├── src
-│   │   └── index.js
-│   └── yarn.lock
 ├── elasticsearch
 │   ├── config
 │   │   └── elasticsearch.yml
@@ -35,13 +29,13 @@ This is extended version from [ELK on Docker](https://github.com/deviantony/dock
 │   ├── Dockerfile
 │   └── log
 │       ├── access.log
+│       ├── postdata.log
 │       └── error.log
 ├── docker-compose.yml
 ├── LICENSE
 └── README.md
 ```
 
-- App: minimal simple Express app
 - Nginx: web server for app.
 - Elasticsearch: containing build image and configure for Elasticsearch
 - Filebeat: containing build image and configure for Filebeat to streaming log of Nginx to Logstash
@@ -54,7 +48,8 @@ To run this stack, run the following command
 ```bash
 docker-compose up
 ```
-Then go to `http://localhost:5601` to see your data in Kibana
+Then make a POST request to `http://localhost/log` with a raw JSON body,
+go to `http://localhost:5601` to see your data in Kibana
 
 Default Kibana user information
 - Username: elastic
